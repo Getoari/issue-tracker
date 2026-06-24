@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Project;
 use App\Models\Comment;
 use App\Models\Tag;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Issue extends Model
 {
+    use HasFactory;
+ 
     protected $fillable = [
         'project_id',
         'title',
