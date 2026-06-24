@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreIssueRequest;
+use App\Models\Issue;
+use App\Models\Project;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
-use App\Models\Issue;
-use App\Models\Tag;
 class IssueController extends Controller
 {
     /**
@@ -53,15 +55,23 @@ class IssueController extends Controller
      */
     public function create()
     {
-        //
+        $projects = Project::orderBy('name')->get();
+
+        return view('issues.create', compact('projects'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreIssueRequest $request)
     {
-        //
+        Issue::create(
+            $request->validated()
+        );
+
+        return redirect()
+            ->route('issues.index')
+            ->with('success', 'Issue created successfully.');
     }
 
     /**
